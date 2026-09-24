@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashu's Birthday Surprise 🎁</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#070914;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
+.scene{min-height:100vh;display:none;align-items:center;justify-content:center;text-align:center;padding:25px;position:relative;overflow:hidden}
+.scene.active{display:flex}.bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,#40205f,#11152c 48%,#05060d);z-index:-2}
+.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:55px 55px;opacity:.15;animation:drift 12s linear infinite}
+@keyframes drift{to{transform:translateY(55px)}}
+.box{max-width:900px;width:100%;z-index:2}.small{letter-spacing:3px;text-transform:uppercase;color:#c9b8ff;font-size:12px}
+h1{font-size:clamp(45px,9vw,90px);margin:15px 0;background:linear-gradient(90deg,#fff,#ff86d0,#9f8cff,#fff);background-size:250%;-webkit-background-clip:text;color:transparent;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:250%}}
+h2{font-size:clamp(30px,6vw,55px);margin:10px 0 20px}.lead{font-size:19px;line-height:1.7;color:#ddd0e8}
+.btn{border:0;border-radius:50px;padding:15px 27px;margin:12px 6px;background:#ff4fae;color:white;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 10px 35px #ff4fae35;transition:.25s}.btn:hover{transform:translateY(-3px) scale(1.02)}
+/* door */
+.door-wrap{height:390px;width:280px;perspective:900px;margin:20px auto}.door{height:100%;width:100%;background:linear-gradient(135deg,#572f87,#1b1235);border:8px solid #b88a58;border-radius:12px;position:relative;transform-origin:left;transition:1.2s;box-shadow:0 20px 70px #000}.door.open{transform:rotateY(-72deg)}.knob{position:absolute;right:28px;top:50%;width:18px;height:18px;border-radius:50%;background:#ffd77a}.door-text{padding-top:80px;font-size:25px;font-weight:bold}
+/* gift */
+.gift{font-size:145px;cursor:pointer;filter:drop-shadow(0 20px 25px #000);animation:bob 1.8s infinite}.gift.opened{animation:none;transform:scale(1.1)}@keyframes bob{50%{transform:translateY(-15px) rotate(2deg)}}
+.hidden{display:none}.reveal{animation:reveal .7s ease}@keyframes reveal{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+/* photos */
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:25px auto;max-width:950px}.polaroid{background:#fff;padding:10px 10px 35px;color:#111;transform:rotate(-3deg);box-shadow:0 15px 35px #0008}.polaroid:nth-child(2){transform:rotate(3deg);margin-top:25px}.polaroid:nth-child(3){transform:rotate(-2deg)}.polaroid img{width:100%;height:350px;object-fit:cover}.polaroid b{display:block;margin-top:12px;font-family:cursive;font-size:18px}
+/* quiz */
+.quiz{max-width:650px;margin:auto;background:#ffffff0d;border:1px solid #ffffff20;padding:30px;border-radius:28px}.option{display:block;width:100%;margin:10px 0;padding:14px;border-radius:14px;border:1px solid #ffffff22;background:#ffffff0b;color:white;cursor:pointer;font-size:16px}.option:hover{background:#ff4fae33}
+/* cake */
+.cake{font-size:130px;animation:cakebob 2s infinite}@keyframes cakebob{50%{transform:translateY(-10px)}}.final{font-size:25px;line-height:1.7;color:#ffe9f7}
+.progress{position:fixed;top:0;left:0;right:0;height:4px;background:#ffffff15;z-index:50}.bar{height:100%;width:20%;background:#ff59b2;transition:.5s}
+@media(max-width:750px){.photos{grid-template-columns:1fr}.polaroid img{height:430px}.door-wrap{height:340px;width:245px}.gift{font-size:110px}}
+.confetti{position:fixed;top:-20px;width:8px;height:14px;z-index:100;animation:fall 4s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<section class="scene active" id="s1"><div class="bg"></div><div class="stars"></div><div class="box">
+<div class="small">A secret birthday experience</div><h1>Hey Ashu! 🎂</h1>
+<p class="lead">Someone has prepared a little surprise just for you.<br>But first… you have to open the door. 🚪✨</p>
+<div class="door-wrap"><div class="door" id="door"><div class="door-text">BIRTHDAY<br>ROOM 🎉</div><div class="knob"></div></div></div>
+<button class="btn" onclick="openDoor()">Knock Knock 👋</button></div></section>
+
+<section class="scene" id="s2"><div class="bg"></div><div class="stars"></div><div class="box">
+<div class="small">Surprise #1</div><h2>A Gift For You 🎁</h2><p class="lead">Tap the gift box. Something special is waiting inside.</p>
+<div class="gift" id="gift" onclick="openGift()">🎁</div>
+<div id="giftMsg" class="hidden reveal"><h2>🎉 Surprise!</h2><p class="lead">Today is all about celebrating YOU, Ashu. Keep smiling and keep making beautiful memories!</p><button class="btn" onclick="next(3)">See Your Memories 📸</button></div>
+</div></section>
+
+<section class="scene" id="s3"><div class="bg"></div><div class="stars"></div><div class="box">
+<div class="small">Surprise #2</div><h2>Memory Wall 📸</h2><p class="lead">A few moments captured just for this birthday.</p>
+<div class="photos">
+<div class="polaroid"><img src="photo1.jpg"><b>That cool moment 💙</b></div>
+<div class="polaroid"><img src="photo2.jpg"><b>Keep that smile 😄</b></div>
+<div class="polaroid"><img src="photo3.jpg"><b>One more memory ✨</b></div>
+</div><button class="btn" onclick="next(4)">Play a Birthday Game 🎮</button></div></section>
+
+<section class="scene" id="s4"><div class="bg"></div><div class="stars"></div><div class="box">
+<div class="small">Surprise #3</div><h2>How Well Do You Know Your Birthday? 😎</h2>
+<div class="quiz" id="quiz"><p class="lead">What should Ashu get more of this year?</p>
+<button class="option" onclick="answer(this,'😂')">More reasons to laugh 😂</button>
+<button class="option" onclick="answer(this,'❤️')">More happiness ❤️</button>
+<button class="option" onclick="answer(this,'✨')">More amazing adventures ✨</button>
+<div id="answer"></div></div></div></section>
+
+<section class="scene" id="s5"><div class="bg"></div><div class="stars"></div><div class="box">
+<div class="small">Final Surprise</div><div class="cake">🎂</div><h2>Make A Wish, Ashu! ✨</h2>
+<p class="final">Close your eyes for a second…<br>make your biggest wish…<br>and tap the button. 💫</p>
+<button class="btn" onclick="finale()">🕯️ Blow the Candles</button>
+<div id="finalMsg" class="hidden reveal"><h2>🎉 HAPPY BIRTHDAY ASHU! 🎉</h2><p class="final">May your year be full of laughter, success, unforgettable adventures and lots of happiness. ❤️</p></div>
+</div></section>
+
+<script>
+let current=1;
+function next(n){document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');current=n;document.getElementById('bar').style.width=(n*20)+'%';window.scrollTo(0,0)}
+function openDoor(){document.getElementById('door').classList.add('open');setTimeout(()=>next(2),900)}
+function openGift(){document.getElementById('gift').classList.add('opened');document.getElementById('giftMsg').classList.remove('hidden');confetti(45);tune()}
+function answer(el,emoji){document.querySelectorAll('.option').forEach(x=>x.disabled=true);document.getElementById('answer').innerHTML='<h3 style="margin-top:20px;font-size:25px">Exactly! '+emoji+' 🎉</h3><p class="lead">There can never be too much happiness!</p><button class="btn" onclick="next(5)">Final Surprise 🎂</button>';confetti(25)}
+function finale(){document.getElementById('finalMsg').classList.remove('hidden');confetti(140);tune()}
+function confetti(n){for(let i=0;i<n;i++){let c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=['#ff4fae','#ffd166','#7c83ff','#55e6ff','#fff'][Math.floor(Math.random()*5)];c.style.animationDuration=(2+Math.random()*3)+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),5500)}}
+function tune(){try{let A=window.AudioContext||window.webkitAudioContext;if(!A)return;let x=new A(),t=x.currentTime;
+let notes=[[261.6,.25],[261.6,.25],[293.7,.5],[261.6,.5],[349.2,.5],[329.6,.9],[261.6,.25],[261.6,.25],[293.7,.5],[261.6,.5],[392,.5],[349.2,.9]];
+notes.forEach(([f,d])=>{let o=x.createOscillator(),g=x.createGain();o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(.14,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+d-.03);o.connect(g);g.connect(x.destination);o.start(t);o.stop(t+d);t+=d})}catch(e){}}
+</script>
+</body>
+</html>
